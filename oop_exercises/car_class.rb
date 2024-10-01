@@ -25,3 +25,12 @@ end
 def turn_on
   puts "the car is turned on"
 end
+
+def self.gas_mileage
+  "the gas compsumption is 0 MPG"
+end
+
+def to_s 
+  "the car models is #{model}, and the color is #{color} and was made in the year #{year}"
+end
+
