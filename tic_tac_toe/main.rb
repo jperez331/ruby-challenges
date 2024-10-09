@@ -1,33 +1,28 @@
 # Tic-tac-toe game from the terminal in ruby code starts here
 require_relative('lib/board')
-require_relative('lib/logic')
 require 'pry'
 
 def game_start
   board = Board.new
-  puts 'Welcome to the tic tac toe game, take your seat and go ahead...'
-  puts board
+  current_player = 'X'
 
-  until Logic.anyone_wins?(board)
-    puts 'Player 1 please select your position to start'
-    player_1_selection = gets.chomp.to_i
-    board.update(player_1_selection)
-    Logic.anyone_wins?(Board.update(player_1_selection))
-    puts board
-    player_2_selection = gets.chomp.to_i
-    board.update(player_2_selection)
-    Logic.anyone_wins?(Board.update(player_2_selection))
-    puts board
+  loop do
+    board.print
+    puts "Player #{current_player}, select a number from 1 to 9:"
+    selection = gets.chomp.to_i
 
+    if board.valid_selection?(selection)
+      board.update(selection, current_player)
+      if board.winner?(current_player)
+        board.print
+        puts "The player #{current_player} wins!!!"
+        break
+      end
+      current_player = current_player == 'X' ? 'O' : 'X' # change the player
+    else
+      puts 'Invalid selection, try again!'
+    end
   end
-
-  # board = Board.new.print
-
-  # if Logic.anyone_wins?(board)
-  #   puts '¡Hay un ganador!'
-  # else
-  #   puts 'No hay ganador todavía.'
-  # end
 end
 
 game_start
